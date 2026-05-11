@@ -508,9 +508,31 @@ section{padding:6rem 2rem;position:relative}
 
 /* JUDGES */
 .judges{margin-top:4rem}
+.judge-group{
+  margin-top:2.5rem;padding-top:2rem;
+  border-top:1px solid var(--grey-mid);
+}
+.judge-group:first-of-type{border-top:none;padding-top:0;margin-top:2rem}
+.judge-group-header{
+  display:flex;align-items:center;gap:1.2rem;margin-bottom:1.5rem;
+}
+.judge-group-num{
+  font-family:'Anton',sans-serif;font-size:3rem;
+  color:var(--orange);line-height:1;letter-spacing:-2px;
+  opacity:.4;
+}
+.judge-group-cat{
+  font-family:'Anton',sans-serif;font-size:1.6rem;
+  letter-spacing:1.5px;color:var(--white);line-height:1;
+  text-transform:uppercase;
+}
+.judge-group-meta{
+  font-size:.65rem;letter-spacing:2px;color:var(--text-muted);
+  text-transform:uppercase;margin-top:.4rem;
+}
 .judge-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:1rem;margin-top:2rem;
+  gap:1rem;
 }
 .judge-card{
   padding:1.5rem 1rem;border:1px solid var(--grey-mid);
@@ -543,6 +565,14 @@ section{padding:6rem 2rem;position:relative}
 .gallery-item.tall{grid-row:span 2}
 .gallery-item.wide{grid-column:span 2}
 .gallery-item.big{grid-row:span 2;grid-column:span 2}
+
+/* Real photo styling */
+.gallery-item img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+  transition:transform .6s ease;
+}
+.gallery-item:hover img{transform:scale(1.05)}
 
 /* SVG-based "photo" placeholders */
 .gphoto{position:absolute;inset:0;display:flex;align-items:flex-end;padding:1rem}
@@ -984,37 +1014,59 @@ footer{
     <!-- JUDGES -->
     <div id="judges" class="judges">
       <div class="section-label">Sudije</div>
-      <h3 class="section-title reveal" style="font-size:clamp(2rem,4vw,3rem)">Hip Hop & Breaking Battle</h3>
-      <div class="judge-grid reveal">
-        <div class="judge-card">
-          <div class="category">Hip Hop</div>
-          <div class="name">NEJC</div>
-          <div class="country">SLO 🇸🇮</div>
+      <h3 class="section-title reveal" style="font-size:clamp(2rem,4vw,3rem)">Battle žiri</h3>
+
+      <div class="judge-group reveal">
+        <div class="judge-group-header">
+          <span class="judge-group-num">01</span>
+          <div>
+            <div class="judge-group-cat">Hip Hop</div>
+            <div class="judge-group-meta">3 sudije · Kvalifikacije & finale</div>
+          </div>
         </div>
-        <div class="judge-card">
-          <div class="category">Hip Hop</div>
-          <div class="name">JU</div>
-          <div class="country">RUS 🇷🇺</div>
+        <div class="judge-grid">
+          <div class="judge-card">
+            <div class="category">Hip Hop</div>
+            <div class="name">NEJC</div>
+            <div class="country">SLO 🇸🇮</div>
+          </div>
+          <div class="judge-card">
+            <div class="category">Hip Hop</div>
+            <div class="name">JU</div>
+            <div class="country">RUS 🇷🇺</div>
+          </div>
+          <div class="judge-card">
+            <div class="category">Hip Hop</div>
+            <div class="name">TARIK</div>
+            <div class="country">BIH 🇧🇦</div>
+          </div>
         </div>
-        <div class="judge-card">
-          <div class="category">Hip Hop</div>
-          <div class="name">TARIK</div>
-          <div class="country">BIH 🇧🇦</div>
+      </div>
+
+      <div class="judge-group reveal">
+        <div class="judge-group-header">
+          <span class="judge-group-num">02</span>
+          <div>
+            <div class="judge-group-cat">Breaking</div>
+            <div class="judge-group-meta">3 sudije · Kvalifikacije & finale</div>
+          </div>
         </div>
-        <div class="judge-card">
-          <div class="category">Breaking</div>
-          <div class="name">LEX</div>
-          <div class="country">SRB 🇷🇸</div>
-        </div>
-        <div class="judge-card">
-          <div class="category">Breaking</div>
-          <div class="name">KELAVA</div>
-          <div class="country">CRO 🇭🇷</div>
-        </div>
-        <div class="judge-card">
-          <div class="category">Breaking</div>
-          <div class="name">GOKU</div>
-          <div class="country">BIH 🇧🇦</div>
+        <div class="judge-grid">
+          <div class="judge-card">
+            <div class="category">Breaking</div>
+            <div class="name">LEX</div>
+            <div class="country">SRB 🇷🇸</div>
+          </div>
+          <div class="judge-card">
+            <div class="category">Breaking</div>
+            <div class="name">KELAVA</div>
+            <div class="country">CRO 🇭🇷</div>
+          </div>
+          <div class="judge-card">
+            <div class="category">Breaking</div>
+            <div class="name">GOKU</div>
+            <div class="country">BIH 🇧🇦</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1062,58 +1114,67 @@ footer{
       <div class="section-label" style="margin-top:4rem">Galerija</div>
       <h3 class="section-title reveal" style="font-size:clamp(2rem,4vw,3rem)">Momenti sa festivala</h3>
       <div class="gallery-grid reveal">
-        <div class="gallery-item big bg-1">
+        <div class="gallery-item big">
+          <img src="images/aerial-cypher.jpg" alt="Aerial breaking cypher" loading="lazy">
           <div class="gphoto-meta">001 / BREAKING</div>
           <div class="gphoto">
-            <span class="gphoto-label">Breaking Finale</span>
+            <span class="gphoto-label">Cypher iz ptičije perspektive</span>
           </div>
         </div>
-        <div class="gallery-item bg-2">
+        <div class="gallery-item">
+          <img src="images/mc-stage.jpg" alt="MC group on stage" loading="lazy">
           <div class="gphoto-meta">002 / MC</div>
           <div class="gphoto">
             <span class="gphoto-label">Mic Drop</span>
           </div>
         </div>
-        <div class="gallery-item bg-3">
+        <div class="gallery-item">
+          <img src="images/dj-set.jpg" alt="DJ set with Nektar branding" loading="lazy">
           <div class="gphoto-meta">003 / DJ</div>
           <div class="gphoto">
-            <span class="gphoto-label">Vinyl Corner</span>
+            <span class="gphoto-label">Behind the decks</span>
           </div>
         </div>
-        <div class="gallery-item tall bg-4">
+        <div class="gallery-item tall">
+          <img src="images/graffiti-2026.jpg" alt="Centrifuga 2026 graffiti" loading="lazy">
           <div class="gphoto-meta">004 / GRAFFITI</div>
           <div class="gphoto">
-            <span class="gphoto-label">Graffiti Jam</span>
+            <span class="gphoto-label">2026 na zidu</span>
           </div>
         </div>
-        <div class="gallery-item wide bg-5">
+        <div class="gallery-item wide">
+          <img src="images/aftermovie.jpg" alt="Crowd shot with Centrifuga banner" loading="lazy">
           <div class="gphoto-meta">005 / CROWD</div>
           <div class="gphoto">
             <span class="gphoto-label">Atmosfera</span>
           </div>
         </div>
-        <div class="gallery-item bg-6">
-          <div class="gphoto-meta">006 / HIP HOP</div>
+        <div class="gallery-item">
+          <img src="images/breaking-cypher.jpg" alt="Breaking battle" loading="lazy">
+          <div class="gphoto-meta">006 / BREAKING</div>
           <div class="gphoto">
-            <span class="gphoto-label">Hip Hop Battle</span>
+            <span class="gphoto-label">Battle</span>
           </div>
         </div>
-        <div class="gallery-item bg-7">
-          <div class="gphoto-meta">007 / STAGE</div>
+        <div class="gallery-item">
+          <img src="images/rooftop.jpg" alt="People on industrial rooftop" loading="lazy">
+          <div class="gphoto-meta">007 / VIBE</div>
           <div class="gphoto">
-            <span class="gphoto-label">Live Set</span>
+            <span class="gphoto-label">Krov</span>
           </div>
         </div>
-        <div class="gallery-item wide bg-8">
-          <div class="gphoto-meta">008 / WORKSHOP</div>
+        <div class="gallery-item wide">
+          <img src="images/keyvisual.jpg" alt="Centrifuga keyvisual dancer" loading="lazy">
+          <div class="gphoto-meta">008 / KEYVISUAL</div>
           <div class="gphoto">
-            <span class="gphoto-label">Workshop</span>
+            <span class="gphoto-label">Hip Hop Festival</span>
           </div>
         </div>
-        <div class="gallery-item bg-1">
-          <div class="gphoto-meta">009 / STREETWEAR</div>
+        <div class="gallery-item">
+          <img src="images/stickers.jpg" alt="Stickers and cards collage" loading="lazy">
+          <div class="gphoto-meta">009 / MERCH</div>
           <div class="gphoto">
-            <span class="gphoto-label">Streetwear</span>
+            <span class="gphoto-label">Hip Hop Lives Here</span>
           </div>
         </div>
       </div>
