@@ -4,120 +4,242 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Centrifuga — Hip Hop Festival | Banja Luka</title>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<meta name="description" content="Centrifuga je hip hop festival u Banja Luci. Breaking, DJing, Graffiti i MCing — sva četiri stuba kulture na jednom mjestu. 2026 stiže.">
+<meta property="og:title" content="Centrifuga · Hip Hop Festival · Banja Luka">
+<meta property="og:description" content="Sva četiri stuba hip hop kulture na jednom mjestu. 2026 stiže.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Archivo+Black&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
   --orange:#F5920A;
+  --orange-bright:#FFA422;
   --orange-dark:#D67D08;
+  --orange-deep:#A85F00;
   --black:#0A0A0A;
+  --black-pure:#000;
   --white:#F2F0ED;
-  --grey:#1A1A1A;
-  --grey-mid:#2A2A2A;
-  --text-muted:#999;
+  --grey:#141414;
+  --grey-mid:#222;
+  --grey-light:#333;
+  --text-muted:#888;
+  --text-soft:#bbb;
 }
-html{scroll-behavior:smooth;background:var(--black);color:var(--white);font-family:'Space Mono',monospace}
-body{overflow-x:hidden}
+html{scroll-behavior:smooth;background:var(--black);color:var(--white);font-family:'Inter',sans-serif}
+body{overflow-x:hidden;cursor:default}
+
+/* CUSTOM SELECTION */
+::selection{background:var(--orange);color:var(--black)}
 
 /* GRAIN OVERLAY */
 body::after{
   content:'';position:fixed;top:0;left:0;width:100%;height:100%;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:9999;opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.1'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;opacity:.4;mix-blend-mode:overlay;
 }
 
 /* SCROLLBAR */
-::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar{width:10px}
 ::-webkit-scrollbar-track{background:var(--black)}
 ::-webkit-scrollbar-thumb{background:var(--orange);border-radius:0}
+::-webkit-scrollbar-thumb:hover{background:var(--orange-bright)}
+
+/* LOADER */
+.loader{
+  position:fixed;inset:0;z-index:99999;
+  background:var(--black);display:flex;align-items:center;justify-content:center;
+  transition:opacity .6s ease-out, visibility .6s;
+}
+.loader.hide{opacity:0;visibility:hidden}
+.loader-mark{
+  width:80px;height:80px;
+  border-radius:50%;background:var(--orange);
+  display:flex;align-items:center;justify-content:center;
+  animation:loaderPulse 1s ease-in-out infinite;
+}
+.loader-mark svg{width:50px;height:50px}
+@keyframes loaderPulse{
+  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(245,146,10,.5)}
+  50%{transform:scale(.95);box-shadow:0 0 0 30px rgba(245,146,10,0)}
+}
 
 /* NAV */
 nav{
   position:fixed;top:0;left:0;width:100%;z-index:1000;
   display:flex;justify-content:space-between;align-items:center;
   padding:1.2rem 2rem;
-  background:rgba(10,10,10,.85);backdrop-filter:blur(12px);
+  background:rgba(10,10,10,.7);backdrop-filter:blur(16px) saturate(150%);
   border-bottom:1px solid rgba(245,146,10,.15);
+  transition:padding .3s;
 }
+nav.scrolled{padding:.8rem 2rem;background:rgba(10,10,10,.92)}
 .nav-logo{
   font-family:'Anton',sans-serif;font-size:1.6rem;letter-spacing:2px;
   color:var(--orange);text-decoration:none;
+  display:flex;align-items:center;gap:.6rem;
 }
+.nav-logo .mark{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--orange);
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-logo .mark svg{width:20px;height:20px}
 .nav-logo span{color:var(--white)}
-.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{
-  color:var(--text-muted);text-decoration:none;font-size:.75rem;
+  color:var(--text-muted);text-decoration:none;font-size:.7rem;font-weight:500;
   letter-spacing:3px;text-transform:uppercase;
   transition:color .3s;position:relative;
 }
 .nav-links a:hover{color:var(--orange)}
 .nav-links a::after{
-  content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;
+  content:'';position:absolute;bottom:-6px;left:0;width:0;height:2px;
   background:var(--orange);transition:width .3s;
 }
 .nav-links a:hover::after{width:100%}
+.nav-cta{
+  padding:.5rem 1rem;background:var(--orange);color:var(--black);
+  font-weight:700;font-size:.65rem;letter-spacing:2px;
+  text-decoration:none;text-transform:uppercase;
+  transition:transform .2s;
+}
+.nav-cta:hover{transform:translateY(-2px);color:var(--black)}
+.nav-cta::after{display:none}
 
 /* MOBILE NAV */
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:4px}
-.nav-toggle span{display:block;width:24px;height:2px;background:var(--white);margin:5px 0;transition:.3s}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:4px;z-index:1001}
+.nav-toggle span{display:block;width:28px;height:2px;background:var(--white);margin:6px 0;transition:.3s}
+.nav-toggle.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 
-@media(max-width:768px){
+@media(max-width:900px){
   .nav-toggle{display:block}
   .nav-links{
-    position:fixed;top:0;right:-100%;width:70%;height:100vh;
+    position:fixed;top:0;right:-100%;width:80%;max-width:380px;height:100vh;
     flex-direction:column;background:var(--black);
-    padding:5rem 2rem;gap:2rem;
+    padding:6rem 2.5rem 2rem;gap:2rem;align-items:flex-start;
     transition:right .4s cubic-bezier(.4,0,.2,1);
     border-left:1px solid rgba(245,146,10,.2);
   }
   .nav-links.open{right:0}
-  .nav-links a{font-size:.9rem}
+  .nav-links a{font-size:1.1rem;letter-spacing:2px}
+  .nav-cta{margin-top:1rem;padding:.8rem 1.5rem;font-size:.8rem}
 }
 
 /* HERO */
 .hero{
   min-height:100vh;display:flex;flex-direction:column;
   justify-content:center;align-items:center;text-align:center;
-  position:relative;padding:2rem;
+  position:relative;padding:6rem 2rem 4rem;overflow:hidden;
   background:
-    radial-gradient(ellipse at 20% 80%, rgba(245,146,10,.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(245,146,10,.08) 0%, transparent 50%),
+    radial-gradient(ellipse 1200px 600px at 20% 80%, rgba(245,146,10,.18) 0%, transparent 60%),
+    radial-gradient(ellipse 800px 400px at 80% 20%, rgba(245,146,10,.1) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 100%, rgba(168,95,0,.2) 0%, transparent 50%),
     var(--black);
 }
 .hero::before{
   content:'CENTRIFUGA';
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  font-family:'Anton',sans-serif;font-size:clamp(8rem,20vw,18rem);
-  color:rgba(245,146,10,.04);white-space:nowrap;pointer-events:none;
+  font-family:'Anton',sans-serif;font-size:clamp(8rem,22vw,22rem);
+  color:rgba(245,146,10,.035);white-space:nowrap;pointer-events:none;
   letter-spacing:10px;
+  animation:heroDrift 60s linear infinite;
+}
+@keyframes heroDrift{
+  0%{transform:translate(-50%,-50%) translateX(-30px)}
+  50%{transform:translate(-50%,-50%) translateX(30px)}
+  100%{transform:translate(-50%,-50%) translateX(-30px)}
 }
 
+/* Hero decorative shapes */
+.hero-shape{
+  position:absolute;border:1px solid rgba(245,146,10,.15);
+  pointer-events:none;animation:floatShape 12s ease-in-out infinite;
+}
+.hero-shape.s1{top:15%;left:8%;width:80px;height:80px;border-radius:50%}
+.hero-shape.s2{top:25%;right:10%;width:120px;height:120px;transform:rotate(45deg);animation-delay:-3s}
+.hero-shape.s3{bottom:20%;left:12%;width:60px;height:60px;border-radius:50%;animation-delay:-6s}
+.hero-shape.s4{bottom:30%;right:15%;width:100px;height:100px;animation-delay:-9s}
+@keyframes floatShape{
+  0%,100%{transform:translateY(0) rotate(0)}
+  50%{transform:translateY(-30px) rotate(180deg)}
+}
+
+.hero-content{position:relative;z-index:2;max-width:1100px}
+
 .hero-badge{
-  display:inline-block;padding:.4rem 1.2rem;
+  display:inline-flex;align-items:center;gap:.6rem;padding:.5rem 1.3rem;
   border:1px solid var(--orange);color:var(--orange);
-  font-size:.65rem;letter-spacing:4px;text-transform:uppercase;
+  font-size:.65rem;letter-spacing:4px;text-transform:uppercase;font-weight:500;
   margin-bottom:2rem;
   animation:fadeInDown .8s ease-out;
 }
+.hero-badge .pulse-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--orange);
+  animation:pulseDot 1.5s infinite;
+}
+@keyframes pulseDot{0%,100%{opacity:1;box-shadow:0 0 0 0 var(--orange)}50%{opacity:.4;box-shadow:0 0 0 8px transparent}}
+
 .hero h1{
   font-family:'Anton',sans-serif;
-  font-size:clamp(3.5rem,12vw,10rem);
-  line-height:.9;letter-spacing:-2px;
+  font-size:clamp(4rem,14vw,12rem);
+  line-height:.88;letter-spacing:-3px;
   color:var(--white);
   animation:fadeInUp .8s ease-out;
+  position:relative;
 }
 .hero h1 em{
   font-style:normal;color:var(--orange);
   display:inline-block;
   animation:fadeInUp .8s ease-out .2s both;
+  text-shadow:0 0 60px rgba(245,146,10,.4);
 }
-.hero-sub{
-  margin-top:1.5rem;font-size:.85rem;color:var(--text-muted);
-  letter-spacing:2px;max-width:500px;line-height:1.8;
+
+.hero-tagline{
+  margin:1.5rem auto 0;font-family:'Space Mono',monospace;
+  font-size:clamp(.8rem,1.2vw,.95rem);
+  color:var(--text-soft);letter-spacing:2px;
+  max-width:600px;line-height:1.8;
   animation:fadeInUp .8s ease-out .4s both;
 }
+.hero-tagline strong{color:var(--orange);font-weight:700}
+
+.hero-stats{
+  display:flex;justify-content:center;gap:3rem;
+  margin-top:3rem;flex-wrap:wrap;
+  animation:fadeInUp .8s ease-out .6s both;
+}
+.stat{text-align:center}
+.stat .num{
+  font-family:'Anton',sans-serif;
+  font-size:2.5rem;color:var(--orange);line-height:1;
+}
+.stat .label{
+  font-size:.6rem;letter-spacing:3px;color:var(--text-muted);
+  text-transform:uppercase;margin-top:.3rem;
+}
+
+.hero-actions{
+  display:flex;gap:1rem;justify-content:center;margin-top:2.5rem;
+  flex-wrap:wrap;
+  animation:fadeInUp .8s ease-out .8s both;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:1rem 2rem;text-decoration:none;
+  font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:2px;
+  text-transform:uppercase;
+  transition:transform .25s, box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+.btn-primary{background:var(--orange);color:var(--black)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(245,146,10,.4)}
+.btn-secondary{background:transparent;color:var(--white);border:1px solid var(--grey-light)}
+.btn-secondary:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-3px)}
+
 .hero-scroll{
-  position:absolute;bottom:2rem;
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:.5rem;
   color:var(--text-muted);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;
   animation:pulse 2s infinite;
@@ -135,36 +257,161 @@ nav{
 @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
+/* MARQUEE */
+.marquee{
+  border-top:1px solid var(--grey-mid);
+  border-bottom:1px solid var(--grey-mid);
+  overflow:hidden;background:var(--black);
+  padding:1.2rem 0;
+}
+.marquee-track{
+  display:flex;gap:3rem;white-space:nowrap;
+  animation:marqueeScroll 30s linear infinite;
+  font-family:'Anton',sans-serif;font-size:2.2rem;
+  letter-spacing:3px;
+}
+.marquee-track span{display:inline-flex;align-items:center;gap:3rem;color:var(--white)}
+.marquee-track .sep{color:var(--orange)}
+.marquee-track .ghost{color:transparent;-webkit-text-stroke:1px var(--text-muted)}
+@keyframes marqueeScroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
 /* SECTION SHARED */
-section{padding:6rem 2rem}
+section{padding:6rem 2rem;position:relative}
 .section-label{
-  font-size:.6rem;letter-spacing:5px;text-transform:uppercase;
-  color:var(--orange);margin-bottom:1rem;
+  font-size:.65rem;letter-spacing:5px;text-transform:uppercase;
+  color:var(--orange);margin-bottom:1rem;font-weight:700;
   display:flex;align-items:center;gap:1rem;
 }
 .section-label::before{content:'';width:30px;height:1px;background:var(--orange)}
 .section-title{
   font-family:'Anton',sans-serif;font-size:clamp(2.5rem,6vw,5rem);
-  line-height:1;margin-bottom:2rem;
+  line-height:.95;margin-bottom:2rem;letter-spacing:-1px;
+}
+.section-title em{font-style:normal;color:var(--orange)}
+
+/* 2026 SAVE THE DATE */
+.save-date{
+  background:
+    linear-gradient(135deg, rgba(245,146,10,.08) 0%, transparent 50%),
+    var(--black);
+  padding:8rem 2rem;
+  overflow:hidden;position:relative;
+}
+.save-date::before{
+  content:'2026';
+  position:absolute;top:50%;right:-5%;transform:translateY(-50%);
+  font-family:'Anton',sans-serif;font-size:35vw;line-height:1;
+  color:rgba(245,146,10,.04);pointer-events:none;letter-spacing:-10px;
+}
+.save-date-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1.3fr 1fr;gap:4rem;align-items:center;
+  position:relative;z-index:2;
+}
+.save-date-content{
+  position:relative;
+}
+.save-date .live-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.4rem 1rem;border:1px solid var(--orange);
+  color:var(--orange);font-size:.65rem;letter-spacing:3px;
+  text-transform:uppercase;font-weight:700;margin-bottom:1.5rem;
+}
+.save-date .live-tag .dot{
+  width:6px;height:6px;border-radius:50%;background:var(--orange);
+  animation:blink 1.5s infinite;
+}
+.save-date h2{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(3rem,9vw,7rem);
+  line-height:.9;margin-bottom:1.5rem;letter-spacing:-2px;
+}
+.save-date h2 em{font-style:normal;color:var(--orange)}
+.save-date p.lead{
+  font-size:.95rem;color:var(--text-soft);
+  line-height:1.8;max-width:520px;margin-bottom:2rem;
+}
+.save-date-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.save-date-visual{
+  position:relative;height:500px;
+  display:flex;align-items:center;justify-content:center;
+}
+.poster{
+  position:relative;width:340px;height:480px;
+  background:
+    linear-gradient(160deg, #1a1a1a 0%, var(--black) 100%);
+  border:2px solid var(--orange);
+  padding:2rem;display:flex;flex-direction:column;
+  justify-content:space-between;
+  box-shadow:
+    20px 20px 0 -10px var(--orange-deep),
+    40px 40px 0 -20px rgba(245,146,10,.3);
+  transform:rotate(-3deg);
+  transition:transform .4s;
+}
+.poster:hover{transform:rotate(0deg) scale(1.02)}
+.poster .poster-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  font-size:.55rem;letter-spacing:2px;color:var(--text-muted);
+  text-transform:uppercase;
+}
+.poster .poster-title{
+  font-family:'Anton',sans-serif;font-size:5.5rem;
+  line-height:.85;color:var(--white);
+  margin:1rem 0;
+}
+.poster .poster-title em{font-style:normal;color:var(--orange);display:block}
+.poster .poster-year{
+  font-family:'Anton',sans-serif;font-size:8rem;color:var(--orange);
+  line-height:.85;letter-spacing:-5px;
+}
+.poster .poster-meta{
+  border-top:1px solid var(--grey-mid);
+  padding-top:1rem;font-size:.6rem;
+  letter-spacing:2px;color:var(--text-muted);
+  text-transform:uppercase;
+  display:flex;justify-content:space-between;
+}
+.poster .poster-meta strong{color:var(--orange)}
+.poster-tape{
+  position:absolute;top:-15px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  width:120px;height:30px;
+  background:rgba(245,146,10,.4);
+  border-left:1px dashed rgba(245,146,10,.6);
+  border-right:1px dashed rgba(245,146,10,.6);
+}
+
+@media(max-width:900px){
+  .save-date-inner{grid-template-columns:1fr;text-align:center}
+  .save-date-visual{height:auto;margin-top:2rem}
+  .save-date-content .section-label{justify-content:center}
+  .save-date-content .live-tag{margin-left:auto;margin-right:auto}
+  .save-date p.lead{margin-left:auto;margin-right:auto}
+  .save-date-actions{justify-content:center}
 }
 
 /* ABOUT */
+.about-section{background:var(--black)}
 .about{
   max-width:1200px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;gap:4rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;
   align-items:center;
 }
-.about-text p{color:var(--text-muted);line-height:1.9;font-size:.85rem;margin-bottom:1.5rem}
-.pillars{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.about-text p{color:var(--text-soft);line-height:1.9;font-size:.9rem;margin-bottom:1.2rem}
+.about-text p strong{color:var(--orange);font-weight:700}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem}
 .pillar{
   padding:1.5rem;border:1px solid var(--grey-mid);
-  position:relative;overflow:hidden;
-  transition:border-color .3s, transform .3s;
+  position:relative;overflow:hidden;background:rgba(20,20,20,.4);
+  transition:border-color .3s, transform .3s, background .3s;
 }
-.pillar:hover{border-color:var(--orange);transform:translateY(-4px)}
-.pillar-icon{font-size:2rem;margin-bottom:.5rem}
-.pillar h4{font-family:'Anton',sans-serif;font-size:1.2rem;letter-spacing:1px}
-.pillar p{font-size:.7rem;color:var(--text-muted);margin-top:.3rem;line-height:1.5}
+.pillar:hover{border-color:var(--orange);transform:translateY(-4px);background:rgba(245,146,10,.05)}
+.pillar-icon{font-size:1.8rem;margin-bottom:.5rem}
+.pillar h4{font-family:'Anton',sans-serif;font-size:1.2rem;letter-spacing:1.5px;color:var(--white)}
+.pillar p{font-size:.7rem;color:var(--text-muted);margin-top:.4rem;line-height:1.6}
 .pillar::after{
   content:'';position:absolute;top:0;left:0;width:100%;height:2px;
   background:var(--orange);transform:scaleX(0);transform-origin:left;
@@ -177,253 +424,476 @@ section{padding:6rem 2rem}
   display:flex;align-items:center;justify-content:center;
 }
 .about-visual .circle{
-  width:350px;height:350px;border-radius:50%;
+  width:340px;height:340px;border-radius:50%;
   background:var(--orange);
   display:flex;align-items:center;justify-content:center;
   position:relative;
+  box-shadow:0 30px 80px rgba(245,146,10,.25);
 }
-.about-visual .circle svg{width:120px;height:120px}
+.about-visual .circle svg{width:140px;height:140px}
 .about-visual .orbit{
-  position:absolute;width:450px;height:450px;
-  border:1px dashed rgba(245,146,10,.2);border-radius:50%;
-  animation:spin 20s linear infinite;
+  position:absolute;width:440px;height:440px;
+  border:1px dashed rgba(245,146,10,.25);border-radius:50%;
+  animation:spin 25s linear infinite;
+}
+.about-visual .orbit-2{
+  position:absolute;width:540px;height:540px;
+  border:1px dashed rgba(245,146,10,.12);border-radius:50%;
+  animation:spin 40s linear infinite reverse;
 }
 .about-visual .orbit-dot{
   position:absolute;top:-5px;left:50%;transform:translateX(-50%);
-  width:10px;height:10px;background:var(--orange);border-radius:50%;
+  width:12px;height:12px;background:var(--orange);border-radius:50%;
+  box-shadow:0 0 20px var(--orange);
 }
+.about-visual .orbit-2 .orbit-dot{width:8px;height:8px;background:var(--white)}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
 @media(max-width:900px){
-  .about{grid-template-columns:1fr;gap:2rem}
-  .about-visual{height:300px}
-  .about-visual .circle{width:220px;height:220px}
-  .about-visual .orbit{width:300px;height:300px}
+  .about{grid-template-columns:1fr;gap:3rem}
+  .about-visual{height:380px}
+  .about-visual .circle{width:240px;height:240px}
+  .about-visual .orbit{width:320px;height:320px}
+  .about-visual .orbit-2{width:400px;height:400px}
 }
 
 /* ARCHIVE */
-.archive{background:var(--grey)}
-.archive-inner{max-width:1200px;margin:0 auto}
+.archive{background:var(--grey);position:relative;overflow:hidden}
+.archive::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+  opacity:.3;
+}
+.archive-inner{max-width:1200px;margin:0 auto;position:relative}
 .archive-header{
   display:flex;justify-content:space-between;align-items:flex-end;
   flex-wrap:wrap;gap:1rem;margin-bottom:3rem;
 }
 .archive-meta{text-align:right}
-.archive-meta .date{font-family:'Anton',sans-serif;font-size:2rem;color:var(--orange)}
-.archive-meta .venue{font-size:.75rem;color:var(--text-muted);letter-spacing:2px}
+.archive-meta .date{font-family:'Anton',sans-serif;font-size:2.4rem;color:var(--orange);line-height:1}
+.archive-meta .venue{font-size:.7rem;color:var(--text-muted);letter-spacing:3px;margin-top:.4rem;text-transform:uppercase}
 
 /* TIMETABLE */
 .timetable{
-  display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
   margin-bottom:4rem;
 }
 .tt-block{
   padding:2rem;border:1px solid var(--grey-mid);
+  background:rgba(0,0,0,.3);
   position:relative;
 }
 .tt-block h3{
-  font-family:'Anton',sans-serif;font-size:1.5rem;
-  margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem;
+  font-family:'Anton',sans-serif;font-size:1.4rem;
+  margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem;
+  letter-spacing:1px;
 }
-.tt-block h3 .dot{width:8px;height:8px;background:var(--orange);border-radius:50%}
+.tt-block h3 .dot{width:10px;height:10px;background:var(--orange);border-radius:50%;box-shadow:0 0 12px var(--orange)}
 .tt-item{
   display:flex;justify-content:space-between;align-items:center;
-  padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.05);
-  font-size:.8rem;
+  padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:.85rem;
+  transition:padding .2s;
 }
-.tt-item .time{color:var(--orange);font-size:.7rem;font-weight:700;min-width:80px}
-.tt-item .event-name{color:var(--text-muted);flex:1}
+.tt-item:hover{padding-left:.5rem}
+.tt-item:last-child{border-bottom:none}
+.tt-item .time{
+  color:var(--orange);font-size:.7rem;font-weight:700;
+  min-width:90px;font-family:'Space Mono',monospace;
+  letter-spacing:1px;
+}
+.tt-item .event-name{color:var(--text-soft);flex:1}
 
 @media(max-width:768px){.timetable{grid-template-columns:1fr}}
 
 /* JUDGES */
 .judges{margin-top:4rem}
-.judge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;margin-top:2rem}
-.judge-card{
-  padding:1.5rem;border:1px solid var(--grey-mid);
-  text-align:center;position:relative;overflow:hidden;
-  transition:border-color .3s, transform .3s;
+.judge-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1rem;margin-top:2rem;
 }
-.judge-card:hover{border-color:var(--orange);transform:translateY(-4px)}
+.judge-card{
+  padding:1.5rem 1rem;border:1px solid var(--grey-mid);
+  text-align:center;position:relative;overflow:hidden;
+  background:rgba(0,0,0,.3);
+  transition:border-color .3s, transform .3s, background .3s;
+}
+.judge-card:hover{border-color:var(--orange);transform:translateY(-4px);background:rgba(245,146,10,.05)}
 .judge-card .category{
   font-size:.55rem;letter-spacing:3px;text-transform:uppercase;
-  color:var(--orange);margin-bottom:.5rem;
+  color:var(--orange);margin-bottom:.6rem;font-weight:700;
 }
-.judge-card .name{font-family:'Anton',sans-serif;font-size:1.3rem}
-.judge-card .country{font-size:.7rem;color:var(--text-muted);margin-top:.2rem}
+.judge-card .name{font-family:'Anton',sans-serif;font-size:1.5rem;letter-spacing:1px}
+.judge-card .country{font-size:.7rem;color:var(--text-muted);margin-top:.3rem}
 
-/* GALLERY PLACEHOLDER */
+/* GALLERY */
 .gallery-section{margin-top:4rem}
 .gallery-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  grid-auto-rows:200px;
-  gap:4px;margin-top:2rem;
+  grid-auto-rows:180px;
+  gap:6px;margin-top:2rem;
 }
 .gallery-item{
-  background:var(--grey-mid);position:relative;overflow:hidden;
+  position:relative;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:transform .3s;
+  cursor:pointer;transition:transform .4s;
 }
-.gallery-item:hover{transform:scale(1.02)}
+.gallery-item:hover{transform:scale(.98)}
 .gallery-item.tall{grid-row:span 2}
 .gallery-item.wide{grid-column:span 2}
-.gallery-item .placeholder{
-  color:var(--text-muted);font-size:.6rem;letter-spacing:2px;
-  text-transform:uppercase;text-align:center;
-  padding:1rem;
-}
-.gallery-item::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(245,146,10,.1),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.gallery-item:hover::after{opacity:1}
+.gallery-item.big{grid-row:span 2;grid-column:span 2}
 
-@media(max-width:768px){.gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:150px}}
+/* SVG-based "photo" placeholders */
+.gphoto{position:absolute;inset:0;display:flex;align-items:flex-end;padding:1rem}
+.gphoto-label{
+  font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:2px;
+  color:var(--white);text-shadow:0 2px 8px rgba(0,0,0,.6);
+  z-index:2;
+}
+.gphoto-meta{
+  position:absolute;top:1rem;left:1rem;
+  font-size:.55rem;letter-spacing:2px;color:rgba(255,255,255,.7);
+  z-index:2;font-family:'Space Mono',monospace;
+}
+.gphoto-icon{
+  position:absolute;top:1rem;right:1rem;
+  width:20px;height:20px;color:var(--orange);z-index:2;
+}
+
+/* Different gradient compositions per item */
+.bg-1{background:linear-gradient(135deg,#1a1410 0%,#3d2818 30%,#0a0a0a 100%)}
+.bg-1::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(circle at 30% 60%, rgba(245,146,10,.4) 0%, transparent 40%),
+  radial-gradient(circle at 70% 30%, rgba(214,125,8,.3) 0%, transparent 40%);}
+.bg-2{background:linear-gradient(180deg,#001a2e 0%,#003356 50%,#000814 100%)}
+.bg-2::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(circle at 50% 50%, rgba(70,180,255,.4) 0%, transparent 50%),
+  radial-gradient(circle at 20% 80%, rgba(245,146,10,.2) 0%, transparent 30%);}
+.bg-3{background:linear-gradient(135deg,#1c1c1c 0%,#0a0a0a 100%)}
+.bg-3::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(circle at 40% 40%, rgba(255,255,255,.08) 0%, transparent 30%),
+  linear-gradient(45deg,transparent 30%,rgba(245,146,10,.15) 50%,transparent 70%);}
+.bg-4{background:linear-gradient(180deg,#2d1810 0%,#5c2e0f 50%,#1a0f08 100%)}
+.bg-4::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse at 50% 80%, rgba(245,146,10,.5) 0%, transparent 60%);}
+.bg-5{background:linear-gradient(135deg,#0a0a0a 0%,#1c1c1c 50%,#0f0f0f 100%)}
+.bg-5::before{content:'';position:absolute;inset:0;background:
+  repeating-linear-gradient(45deg,transparent 0,transparent 10px,rgba(245,146,10,.05) 10px,rgba(245,146,10,.05) 12px);}
+.bg-6{background:linear-gradient(180deg,#1a0a1a 0%,#3d0e2c 50%,#0a0410 100%)}
+.bg-6::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(circle at 30% 50%, rgba(255,100,200,.3) 0%, transparent 40%),
+  radial-gradient(circle at 70% 70%, rgba(245,146,10,.2) 0%, transparent 40%);}
+.bg-7{background:linear-gradient(135deg,#001020 0%,#003366 30%,#000510 100%)}
+.bg-7::before{content:'';position:absolute;inset:0;background:
+  linear-gradient(180deg,transparent 0%,rgba(70,140,255,.25) 50%,transparent 100%);}
+.bg-8{background:linear-gradient(45deg,#0a0a0a 0%,#1a1a1a 100%)}
+.bg-8::before{content:'';position:absolute;inset:0;background:
+  conic-gradient(from 45deg at 50% 50%,transparent 0deg,rgba(245,146,10,.2) 90deg,transparent 180deg);}
+
+.gallery-item::after{
+  content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.7) 100%);
+  transition:background .3s;
+}
+.gallery-item:hover::after{background:linear-gradient(180deg,rgba(245,146,10,.15) 0%,rgba(0,0,0,.85) 100%)}
+
+@media(max-width:768px){
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:140px}
+  .gallery-item.big{grid-row:span 1;grid-column:span 2}
+}
+
+.gallery-cta{
+  text-align:center;margin-top:3rem;
+}
+.gallery-cta a{
+  display:inline-flex;align-items:center;gap:.6rem;
+  color:var(--orange);text-decoration:none;font-size:.8rem;
+  letter-spacing:3px;text-transform:uppercase;font-weight:700;
+  border-bottom:1px solid var(--orange);padding-bottom:.3rem;
+  transition:gap .3s;
+}
+.gallery-cta a:hover{gap:1.2rem}
 
 /* ACTIVITIES */
-.activities{margin-top:4rem}
-.act-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:2rem}
+.activities{margin-top:5rem}
+.act-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:2rem}
 .act-card{
   padding:1.5rem;border:1px solid var(--grey-mid);
-  transition:border-color .3s, transform .3s;
+  background:rgba(0,0,0,.3);
+  transition:border-color .3s, transform .3s, background .3s;
 }
-.act-card:hover{border-color:var(--orange);transform:translateY(-2px)}
-.act-card h4{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1px;margin-bottom:.3rem}
-.act-card p{font-size:.7rem;color:var(--text-muted);line-height:1.5}
+.act-card:hover{border-color:var(--orange);transform:translateY(-3px);background:rgba(245,146,10,.04)}
+.act-card .icon{font-size:1.5rem;margin-bottom:.6rem}
+.act-card h4{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:1px;margin-bottom:.3rem;color:var(--white)}
+.act-card p{font-size:.75rem;color:var(--text-muted);line-height:1.6}
 
-/* CTA */
-.cta-section{
-  text-align:center;padding:8rem 2rem;
-  background:
-    radial-gradient(ellipse at center, rgba(245,146,10,.1) 0%, transparent 60%),
-    var(--black);
+/* SPONSORS */
+.sponsors-section{
+  padding:5rem 2rem;background:var(--black);
+  border-top:1px solid var(--grey-mid);
+  border-bottom:1px solid var(--grey-mid);
 }
-.cta-section h2{
-  font-family:'Anton',sans-serif;
-  font-size:clamp(2.5rem,8vw,6rem);
-  line-height:.95;margin-bottom:1.5rem;
+.sponsors-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;gap:2rem;
 }
-.cta-section h2 em{font-style:normal;color:var(--orange)}
-.cta-section p{color:var(--text-muted);font-size:.85rem;max-width:500px;margin:0 auto 2rem;line-height:1.8}
-.cta-btn{
-  display:inline-block;padding:1rem 3rem;
-  background:var(--orange);color:var(--black);
-  font-family:'Anton',sans-serif;font-size:1.1rem;
-  letter-spacing:2px;text-decoration:none;
+.sponsors-label{
+  font-size:.6rem;letter-spacing:5px;color:var(--text-muted);
+  text-transform:uppercase;
+}
+.sponsors-grid{
+  display:flex;gap:4rem;align-items:center;justify-content:center;
+  flex-wrap:wrap;
+}
+.sponsor{
+  font-family:'Anton',sans-serif;font-size:2rem;
+  color:var(--text-muted);letter-spacing:2px;
+  opacity:.5;transition:opacity .3s, color .3s, transform .3s;
+}
+.sponsor:hover{opacity:1;color:var(--orange);transform:translateY(-3px)}
+
+/* INSTAGRAM SECTION */
+.ig-section{
+  background:var(--black);padding:8rem 2rem;
+  text-align:center;
   position:relative;overflow:hidden;
-  transition:transform .3s;
 }
-.cta-btn:hover{transform:scale(1.05)}
-.cta-btn::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
-  transform:translateX(-100%);transition:transform .6s;
+.ig-section::before{
+  content:'@centrifuga_051';
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:'Anton',sans-serif;font-size:clamp(8rem,18vw,20rem);
+  color:rgba(245,146,10,.03);white-space:nowrap;pointer-events:none;
+  letter-spacing:5px;
 }
-.cta-btn:hover::after{transform:translateX(100%)}
+.ig-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.ig-section h2{
+  font-family:'Anton',sans-serif;font-size:clamp(2.5rem,7vw,5.5rem);
+  line-height:.95;margin:1rem 0 1.5rem;
+}
+.ig-section p{color:var(--text-soft);font-size:.9rem;line-height:1.8;margin-bottom:2.5rem;max-width:500px;margin-left:auto;margin-right:auto}
+.ig-handle{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.6rem 1.4rem;background:rgba(245,146,10,.1);
+  border:1px solid var(--orange);color:var(--orange);
+  font-family:'Space Mono',monospace;font-size:.85rem;
+  text-decoration:none;letter-spacing:1px;
+  transition:background .3s, transform .3s;
+}
+.ig-handle:hover{background:var(--orange);color:var(--black);transform:translateY(-3px)}
 
 /* FOOTER */
 footer{
-  padding:3rem 2rem;border-top:1px solid var(--grey-mid);
+  padding:4rem 2rem 2rem;
+  border-top:1px solid var(--grey-mid);
+  background:var(--black);
+}
+.footer-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;
+}
+.footer-col h5{
+  font-size:.65rem;letter-spacing:3px;color:var(--orange);
+  text-transform:uppercase;margin-bottom:1.2rem;font-weight:700;
+}
+.footer-col p, .footer-col a{
+  display:block;color:var(--text-muted);
+  font-size:.8rem;line-height:1.8;text-decoration:none;
+  margin-bottom:.4rem;transition:color .3s;
+}
+.footer-col a:hover{color:var(--orange)}
+.footer-brand{
+  font-family:'Anton',sans-serif;font-size:1.5rem;
+  color:var(--orange);letter-spacing:2px;margin-bottom:.8rem;
+}
+.footer-brand span{color:var(--white)}
+.footer-bottom{
+  max-width:1200px;margin:3rem auto 0;padding-top:2rem;
+  border-top:1px solid var(--grey-mid);
   display:flex;justify-content:space-between;align-items:center;
   flex-wrap:wrap;gap:1rem;
-  max-width:1200px;margin:0 auto;
 }
-footer .brand{
-  font-family:'Anton',sans-serif;font-size:1.2rem;
-  color:var(--orange);
-}
-footer .socials{display:flex;gap:1.5rem}
-footer .socials a{
-  color:var(--text-muted);text-decoration:none;font-size:.7rem;
-  letter-spacing:2px;text-transform:uppercase;transition:color .3s;
-}
-footer .socials a:hover{color:var(--orange)}
-footer .copy{font-size:.6rem;color:var(--text-muted);width:100%;text-align:center;margin-top:1rem}
+.footer-bottom p{font-size:.65rem;color:var(--text-muted);letter-spacing:1px}
 
-/* SPONSORS */
-.sponsors{
-  display:flex;align-items:center;justify-content:center;gap:3rem;
-  padding:2rem;margin-top:2rem;
-  border-top:1px solid rgba(255,255,255,.05);
-  border-bottom:1px solid rgba(255,255,255,.05);
+@media(max-width:768px){
+  .footer-inner{grid-template-columns:1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;text-align:center}
 }
-.sponsors span{font-size:.6rem;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase}
-.sponsors .sponsor-name{
-  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--text-muted);
-  opacity:.5;transition:opacity .3s;
-}
-.sponsors .sponsor-name:hover{opacity:1;color:var(--orange)}
 
-/* SCROLL ANIMATIONS */
+/* REVEAL */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease-out, transform .8s ease-out}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* BADGE PULSE */
-.live-badge{
-  display:inline-flex;align-items:center;gap:.4rem;
-  padding:.3rem .8rem;background:rgba(245,146,10,.1);
-  border:1px solid rgba(245,146,10,.3);
-  font-size:.6rem;letter-spacing:2px;text-transform:uppercase;
-  color:var(--orange);
-}
-.live-badge .dot{
-  width:6px;height:6px;border-radius:50%;background:var(--orange);
-  animation:blink 1.5s infinite;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-
-/* DECORATIVE LINES */
+/* DECO LINE */
 .deco-line{
   width:100%;height:1px;
   background:linear-gradient(90deg,transparent,var(--orange),transparent);
-  margin:4rem 0;opacity:.2;
+  margin:4rem 0;opacity:.25;
+}
+
+/* HERO STATS responsive */
+@media(max-width:600px){
+  .hero-stats{gap:2rem}
+  .stat .num{font-size:2rem}
+  .marquee-track{font-size:1.6rem;gap:2rem}
+  .marquee-track span{gap:2rem}
 }
 </style>
 </head>
 <body>
 
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-mark">
+    <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M30 20 Q50 5 70 20 Q55 40 70 60 Q50 45 30 60 Q45 40 30 20Z
+               M30 60 Q50 45 70 60 Q55 80 70 100 Q50 85 30 100 Q45 80 30 60Z
+               M30 100 Q50 85 70 100 Q55 115 70 130 Q50 120 30 130 Q45 115 30 100Z"
+            stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+</div>
+
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">CENTRI<span>FUGA</span></a>
-  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <span class="mark">
+      <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 20 Q50 5 70 20 Q55 40 70 60 Q50 45 30 60 Q45 40 30 20Z
+                 M30 60 Q50 45 70 60 Q55 80 70 100 Q50 85 30 100 Q45 80 30 60Z
+                 M30 100 Q50 85 70 100 Q55 115 70 130 Q50 120 30 130 Q45 115 30 100Z"
+              stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/>
+      </svg>
+    </span>
+    CENTRI<span>FUGA</span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#about">O festivalu</a></li>
     <li><a href="#archive">Arhiva 2025</a></li>
     <li><a href="#timetable">Program</a></li>
     <li><a href="#judges">Sudije</a></li>
-    <li><a href="#contact">Kontakt</a></li>
+    <li><a href="#2026" class="nav-cta">2026 →</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">Banja Luka · Hip Hop kultura</div>
-  <h1>CENTRI<em>FUGA</em></h1>
-  <p class="hero-sub">
-    Breaking · DJing · Graffiti · MCing<br>
-    Svi elementi. Jedno mjesto. Jedan dan.
-  </p>
+  <div class="hero-shape s1"></div>
+  <div class="hero-shape s2"></div>
+  <div class="hero-shape s3"></div>
+  <div class="hero-shape s4"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse-dot"></span>
+      <span>Banja Luka · BiH · Hip Hop Festival</span>
+    </div>
+    <h1>CENTRI<em>FUGA</em></h1>
+    <p class="hero-tagline">
+      Breaking · DJing · Graffiti · MCing<br>
+      <strong>Sva četiri stuba.</strong> Jedno mjesto. Jedan dan.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="num">4</div>
+        <div class="label">Elementa</div>
+      </div>
+      <div class="stat">
+        <div class="num">8h+</div>
+        <div class="label">Programa</div>
+      </div>
+      <div class="stat">
+        <div class="num">6</div>
+        <div class="label">Sudija</div>
+      </div>
+      <div class="stat">
+        <div class="num">1</div>
+        <div class="label">Grad</div>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#2026" class="btn btn-primary">2026 stiže →</a>
+      <a href="#archive" class="btn btn-secondary">Arhiva 2025</a>
+    </div>
+  </div>
+
   <div class="hero-scroll">
     <span>Scroll</span>
     <div class="arrow"></div>
   </div>
 </section>
 
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>
+      BREAKING <span class="sep">·</span> <span class="ghost">DJING</span> <span class="sep">·</span>
+      GRAFFITI <span class="sep">·</span> <span class="ghost">MCING</span> <span class="sep">·</span>
+      BANJA LUKA <span class="sep">·</span> <span class="ghost">2026</span> <span class="sep">·</span>
+      CENTRIFUGA <span class="sep">·</span> <span class="ghost">HIP HOP CULTURE</span> <span class="sep">·</span>
+    </span>
+    <span aria-hidden="true">
+      BREAKING <span class="sep">·</span> <span class="ghost">DJING</span> <span class="sep">·</span>
+      GRAFFITI <span class="sep">·</span> <span class="ghost">MCING</span> <span class="sep">·</span>
+      BANJA LUKA <span class="sep">·</span> <span class="ghost">2026</span> <span class="sep">·</span>
+      CENTRIFUGA <span class="sep">·</span> <span class="ghost">HIP HOP CULTURE</span> <span class="sep">·</span>
+    </span>
+  </div>
+</div>
+
+<!-- 2026 SAVE THE DATE -->
+<section id="2026" class="save-date">
+  <div class="save-date-inner">
+    <div class="save-date-content reveal">
+      <div class="section-label">Sljedeće izdanje</div>
+      <div class="live-tag"><span class="dot"></span> Save the date</div>
+      <h2>CENTRIFUGA<br><em>2026</em></h2>
+      <p class="lead">
+        Druga edicija festivala stiže 2026. godine u Banja Luku.
+        Nova lokacija, nove sudije, nove battle kategorije i još
+        više elemenata kulture na jednom mjestu.
+      </p>
+      <div class="save-date-actions">
+        <a href="https://instagram.com/centrifuga_051" target="_blank" class="btn btn-primary">Prati najavu →</a>
+        <a href="#about" class="btn btn-secondary">Više o festivalu</a>
+      </div>
+    </div>
+    <div class="save-date-visual reveal">
+      <div class="poster">
+        <div class="poster-tape"></div>
+        <div class="poster-top">
+          <span>HIP HOP FESTIVAL</span>
+          <span>VOL. 02</span>
+        </div>
+        <div>
+          <div class="poster-title">CENTRI<em>FUGA</em></div>
+          <div class="poster-year">26</div>
+        </div>
+        <div class="poster-meta">
+          <span>BANJA LUKA</span>
+          <span><strong>SOON</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ABOUT -->
-<section id="about" style="max-width:1200px;margin:0 auto">
+<section id="about" class="about-section">
   <div class="about">
     <div class="about-content">
       <div class="section-label">O festivalu</div>
-      <h2 class="section-title reveal">Hip hop kultura<br>na jednom mjestu</h2>
+      <h2 class="section-title reveal">Hip hop kultura<br>na <em>jednom mjestu</em></h2>
       <div class="about-text reveal">
         <p>
-          Centrifuga je festival koji okuplja sva četiri stuba hip hop kulture u Banja Luci.
-          Breaking, DJing, Graffiti i MCing — sve na jednom mjestu, pod jednim krovom,
-          sa jednom energijom.
+          <strong>Centrifuga</strong> je festival koji okuplja sva četiri stuba hip hop kulture
+          u Banja Luci. Breaking, DJing, Graffiti i MCing — sve na jednom mjestu,
+          pod jednim krovom, sa jednom energijom.
         </p>
         <p>
           Festival donosi iskusne plesače, sudije i umjetnike sa regionalne i internacionalne
@@ -445,7 +915,7 @@ footer .copy{font-size:.6rem;color:var(--text-muted);width:100%;text-align:cente
         <div class="pillar">
           <div class="pillar-icon">🎨</div>
           <h4>GRAFFITI</h4>
-          <p>Graffiti jam & sketching workshop</p>
+          <p>Graffiti jam & sketching</p>
         </div>
         <div class="pillar">
           <div class="pillar-icon">🎤</div>
@@ -455,6 +925,7 @@ footer .copy{font-size:.6rem;color:var(--text-muted);width:100%;text-align:cente
       </div>
     </div>
     <div class="about-visual reveal">
+      <div class="orbit-2"><div class="orbit-dot"></div></div>
       <div class="orbit"><div class="orbit-dot"></div></div>
       <div class="circle">
         <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -474,22 +945,16 @@ footer .copy{font-size:.6rem;color:var(--text-muted);width:100%;text-align:cente
     <div class="archive-header">
       <div>
         <div class="section-label">Arhiva</div>
-        <h2 class="section-title reveal">Centrifuga <em style="font-style:normal;color:var(--orange)">2025</em></h2>
+        <h2 class="section-title reveal">Centrifuga <em>2025</em></h2>
       </div>
       <div class="archive-meta reveal">
         <div class="date">25.04.2025</div>
-        <div class="venue">DKC INCEL · BANJA LUKA</div>
+        <div class="venue">DKC Incel · Banja Luka</div>
       </div>
     </div>
 
-    <div class="sponsors reveal">
-      <span>Powered by</span>
-      <div class="sponsor-name">OCB</div>
-      <div class="sponsor-name">NEKTAR</div>
-    </div>
-
     <!-- TIMETABLE -->
-    <div id="timetable" style="margin-top:4rem">
+    <div id="timetable">
       <div class="section-label">Raspored</div>
       <h3 class="section-title reveal" style="font-size:clamp(2rem,4vw,3rem)">Program dana</h3>
       <div class="timetable reveal">
@@ -560,73 +1025,172 @@ footer .copy{font-size:.6rem;color:var(--text-muted);width:100%;text-align:cente
       <h3 class="section-title reveal" style="font-size:clamp(2rem,4vw,3rem)">Više od battlea</h3>
       <div class="act-grid reveal">
         <div class="act-card">
-          <h4>🎨 Graffiti Jam</h4>
+          <div class="icon">🎨</div>
+          <h4>Graffiti Jam</h4>
           <p>Živopisni murali nastaju uživo tokom cijelog dana</p>
         </div>
         <div class="act-card">
-          <h4>🎵 Vinyl Corner</h4>
+          <div class="icon">🎵</div>
+          <h4>Vinyl Corner</h4>
           <p>DJ-evi vrte ploče, od klasika do novih zvukova</p>
         </div>
         <div class="act-card">
-          <h4>👕 DIY T-shirt</h4>
+          <div class="icon">👕</div>
+          <h4>DIY T-shirt</h4>
           <p>Napravi svoj custom komad na licu mjesta</p>
         </div>
         <div class="act-card">
-          <h4>✏️ Sketching Workshop</h4>
+          <div class="icon">✏️</div>
+          <h4>Sketching Workshop</h4>
           <p>Nauči osnove skiciranja od iskusnih umjetnika</p>
         </div>
         <div class="act-card">
-          <h4>🏀 Basket Challenge</h4>
+          <div class="icon">🏀</div>
+          <h4>Basket Challenge</h4>
           <p>Freethrow izazov za sve uzraste</p>
         </div>
         <div class="act-card">
-          <h4>🛋️ Chill Zone</h4>
+          <div class="icon">🛋️</div>
+          <h4>Chill Zone</h4>
           <p>Opusti se, druži se, upij atmosferu</p>
         </div>
       </div>
     </div>
 
-    <!-- GALLERY PLACEHOLDERS -->
+    <!-- GALLERY -->
     <div class="gallery-section">
       <div class="section-label" style="margin-top:4rem">Galerija</div>
       <h3 class="section-title reveal" style="font-size:clamp(2rem,4vw,3rem)">Momenti sa festivala</h3>
       <div class="gallery-grid reveal">
-        <div class="gallery-item tall"><div class="placeholder">Breaking<br>Battle</div></div>
-        <div class="gallery-item wide"><div class="placeholder">Graffiti Jam</div></div>
-        <div class="gallery-item"><div class="placeholder">Vinyl Corner</div></div>
-        <div class="gallery-item"><div class="placeholder">Atmosfera</div></div>
-        <div class="gallery-item wide"><div class="placeholder">Hip Hop Finals</div></div>
-        <div class="gallery-item"><div class="placeholder">Streetwear</div></div>
-        <div class="gallery-item tall"><div class="placeholder">DJ Set</div></div>
-        <div class="gallery-item"><div class="placeholder">Workshop</div></div>
-        <div class="gallery-item wide"><div class="placeholder">Crowd</div></div>
-        <div class="gallery-item"><div class="placeholder">Chill Zone</div></div>
+        <div class="gallery-item big bg-1">
+          <div class="gphoto-meta">001 / BREAKING</div>
+          <div class="gphoto">
+            <span class="gphoto-label">Breaking Finale</span>
+          </div>
+        </div>
+        <div class="gallery-item bg-2">
+          <div class="gphoto-meta">002 / MC</div>
+          <div class="gphoto">
+            <span class="gphoto-label">Mic Drop</span>
+          </div>
+        </div>
+        <div class="gallery-item bg-3">
+          <div class="gphoto-meta">003 / DJ</div>
+          <div class="gphoto">
+            <span class="gphoto-label">Vinyl Corner</span>
+          </div>
+        </div>
+        <div class="gallery-item tall bg-4">
+          <div class="gphoto-meta">004 / GRAFFITI</div>
+          <div class="gphoto">
+            <span class="gphoto-label">Graffiti Jam</span>
+          </div>
+        </div>
+        <div class="gallery-item wide bg-5">
+          <div class="gphoto-meta">005 / CROWD</div>
+          <div class="gphoto">
+            <span class="gphoto-label">Atmosfera</span>
+          </div>
+        </div>
+        <div class="gallery-item bg-6">
+          <div class="gphoto-meta">006 / HIP HOP</div>
+          <div class="gphoto">
+            <span class="gphoto-label">Hip Hop Battle</span>
+          </div>
+        </div>
+        <div class="gallery-item bg-7">
+          <div class="gphoto-meta">007 / STAGE</div>
+          <div class="gphoto">
+            <span class="gphoto-label">Live Set</span>
+          </div>
+        </div>
+        <div class="gallery-item wide bg-8">
+          <div class="gphoto-meta">008 / WORKSHOP</div>
+          <div class="gphoto">
+            <span class="gphoto-label">Workshop</span>
+          </div>
+        </div>
+        <div class="gallery-item bg-1">
+          <div class="gphoto-meta">009 / STREETWEAR</div>
+          <div class="gphoto">
+            <span class="gphoto-label">Streetwear</span>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-cta">
+        <a href="https://photos.app.goo.gl/vncNReatSCUGFSki6" target="_blank" rel="noopener">
+          Vidi cijelu arhivu fotografija →
+        </a>
       </div>
     </div>
   </div>
 </section>
 
-<div class="deco-line"></div>
+<!-- SPONSORS -->
+<section class="sponsors-section">
+  <div class="sponsors-inner">
+    <div class="sponsors-label">Powered by</div>
+    <div class="sponsors-grid">
+      <div class="sponsor">OCB</div>
+      <div class="sponsor">NEKTAR</div>
+      <div class="sponsor">DKC INCEL</div>
+    </div>
+  </div>
+</section>
 
-<!-- CTA -->
-<section id="contact" class="cta-section">
-  <div class="section-label" style="justify-content:center">Sljedeće izdanje</div>
-  <h2 class="reveal">CENTRI<em>FUGA</em><br>SE VRAĆA</h2>
-  <p class="reveal">Prati nas na društvenim mrežama za najave, datume i prijave za battle-ove.</p>
-  <a href="https://instagram.com/centrifuga_051" target="_blank" class="cta-btn reveal">PRATI NAS →</a>
+<!-- INSTAGRAM CTA -->
+<section id="contact" class="ig-section">
+  <div class="ig-content">
+    <div class="section-label" style="justify-content:center">Prati nas</div>
+    <h2 class="reveal">Sve <em>najave</em><br>na Instagramu</h2>
+    <p class="reveal">
+      Najave, datumi, prijave za battle-ove, lineup i sve ostalo —
+      prvo objavljujemo na našem Instagramu.
+    </p>
+    <a href="https://instagram.com/centrifuga_051" target="_blank" class="ig-handle reveal" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+      </svg>
+      @centrifuga_051
+    </a>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="brand">CENTRIFUGA ·051</div>
-  <div class="socials">
-    <a href="https://instagram.com/centrifuga_051" target="_blank">Instagram</a>
-    <a href="#contact">Kontakt</a>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-brand">CENTRI<span>FUGA</span></div>
+      <p>Hip hop festival koji okuplja sva četiri stuba kulture u Banja Luci.</p>
+      <p style="color:var(--orange);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;margin-top:1rem">·051 · BiH</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigacija</h5>
+      <a href="#about">O festivalu</a>
+      <a href="#archive">Arhiva 2025</a>
+      <a href="#timetable">Program</a>
+      <a href="#judges">Sudije</a>
+      <a href="#2026">2026 najava</a>
+    </div>
+    <div class="footer-col">
+      <h5>Prati nas</h5>
+      <a href="https://instagram.com/centrifuga_051" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://photos.app.goo.gl/vncNReatSCUGFSki6" target="_blank" rel="noopener">Foto arhiva</a>
+      <a href="mailto:centrifuga051@gmail.com">Kontakt</a>
+    </div>
   </div>
-  <div class="copy">© 2025 Centrifuga Hip Hop Festival · Banja Luka, BiH</div>
+  <div class="footer-bottom">
+    <p>© 2025 Centrifuga Hip Hop Festival · Banja Luka, BiH</p>
+    <p>Made with <span style="color:var(--orange)">●</span> for the culture</p>
+  </div>
 </footer>
 
 <script>
+// Loader
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('hide'), 400);
+});
+
 // Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
@@ -636,13 +1200,26 @@ const observer = new IntersectionObserver((entries) => {
       observer.unobserve(e.target);
     }
   });
-}, { threshold: 0.15 });
+}, { threshold: 0.12 });
 reveals.forEach(el => observer.observe(el));
 
-// Close mobile nav on link click
+// Nav scroll state
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Mobile nav
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  navToggle.classList.toggle('open');
+});
 document.querySelectorAll('.nav-links a').forEach(a => {
   a.addEventListener('click', () => {
-    document.querySelector('.nav-links').classList.remove('open');
+    navLinks.classList.remove('open');
+    navToggle.classList.remove('open');
   });
 });
 </script>
