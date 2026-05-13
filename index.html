@@ -53,11 +53,10 @@ body::after{
 .loader.hide{opacity:0;visibility:hidden}
 .loader-mark{
   width:80px;height:80px;
-  border-radius:50%;background:var(--orange);
   display:flex;align-items:center;justify-content:center;
   animation:loaderPulse 1s ease-in-out infinite;
 }
-.loader-mark svg{width:50px;height:50px}
+.loader-mark img{width:80px;height:80px;object-fit:contain}
 @keyframes loaderPulse{
   0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(245,146,10,.5)}
   50%{transform:scale(.95);box-shadow:0 0 0 30px rgba(245,146,10,0)}
@@ -79,11 +78,10 @@ nav.scrolled{padding:.8rem 2rem;background:rgba(10,10,10,.92)}
   display:flex;align-items:center;gap:.6rem;
 }
 .nav-logo .mark{
-  width:32px;height:32px;border-radius:50%;
-  background:var(--orange);
+  width:36px;height:36px;
   display:flex;align-items:center;justify-content:center;
 }
-.nav-logo .mark svg{width:20px;height:20px}
+.nav-logo .mark img{width:36px;height:36px;object-fit:contain}
 .nav-logo span{color:var(--white)}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
 .nav-links a{
@@ -775,12 +773,7 @@ footer{
 <!-- LOADER -->
 <div class="loader" id="loader">
   <div class="loader-mark">
-    <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M30 20 Q50 5 70 20 Q55 40 70 60 Q50 45 30 60 Q45 40 30 20Z
-               M30 60 Q50 45 70 60 Q55 80 70 100 Q50 85 30 100 Q45 80 30 60Z
-               M30 100 Q50 85 70 100 Q55 115 70 130 Q50 120 30 130 Q45 115 30 100Z"
-            stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
-    </svg>
+    <img src="images/logonobg.png" alt="Centrifuga">
   </div>
 </div>
 
@@ -788,14 +781,9 @@ footer{
 <nav id="nav">
   <a href="#" class="nav-logo">
     <span class="mark">
-      <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M30 20 Q50 5 70 20 Q55 40 70 60 Q50 45 30 60 Q45 40 30 20Z
-                 M30 60 Q50 45 70 60 Q55 80 70 100 Q50 85 30 100 Q45 80 30 60Z
-                 M30 100 Q50 85 70 100 Q55 115 70 130 Q50 120 30 130 Q45 115 30 100Z"
-              stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/>
-      </svg>
+      <img src="images/logonobg.png" alt="Centrifuga logo">
     </span>
-    CENTRI<span>FUGA</span>
+    CENTRIFUGA
   </a>
   <button class="nav-toggle" id="navToggle" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -821,7 +809,7 @@ footer{
       <span class="pulse-dot"></span>
       <span>Banja Luka · BiH · Hip Hop Festival</span>
     </div>
-    <h1>CENTRI<em>FUGA</em></h1>
+    <h1>CENTRIFUGA</h1>
     <p class="hero-tagline">
       Breaking · DJing · Graffiti · MCing<br>
       <strong>Sva četiri stuba.</strong> Jedno mjesto. Jedan dan.
@@ -901,7 +889,7 @@ footer{
           <span>VOL. 03</span>
         </div>
         <div>
-          <div class="poster-title">CENTRI<em>FUGA</em></div>
+          <div class="poster-title">CENTRIFUGA</div>
           <div class="poster-year">27</div>
         </div>
         <div class="poster-meta">
@@ -958,12 +946,7 @@ footer{
       <div class="orbit-2"><div class="orbit-dot"></div></div>
       <div class="orbit"><div class="orbit-dot"></div></div>
       <div class="circle">
-        <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M30 20 Q50 5 70 20 Q55 40 70 60 Q50 45 30 60 Q45 40 30 20Z
-                   M30 60 Q50 45 70 60 Q55 80 70 100 Q50 85 30 100 Q45 80 30 60Z
-                   M30 100 Q50 85 70 100 Q55 115 70 130 Q50 120 30 130 Q45 115 30 100Z"
-                stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
-        </svg>
+        <img src="images/logonobg.png" alt="Centrifuga" style="width:140px;height:140px;object-fit:contain">
       </div>
     </div>
   </div>
@@ -1335,7 +1318,7 @@ footer{
 <footer>
   <div class="footer-inner">
     <div class="footer-col">
-      <div class="footer-brand">CENTRI<span>FUGA</span></div>
+      <div class="footer-brand">CENTRIFUGA</div>
       <p>Hip hop festival koji okuplja sva četiri stuba kulture u Banja Luci.</p>
       <p style="color:var(--orange);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;margin-top:1rem">·051 · BiH</p>
     </div>
